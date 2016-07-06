@@ -2,7 +2,7 @@ package by.trepam.karotki.ht15.part_2;
 
 import by.trepam.karotki.ht15.exception.MatrixException;
 
-public class FixedThreadMatrixMultiplication {
+public class LimitedThreadsMatrixMult {
 	private int[][] matrix1;
 	private int[][] matrix2;
 	private int amountThreads;
@@ -10,7 +10,7 @@ public class FixedThreadMatrixMultiplication {
 	private int resultMatrixRows;
 	private int resultMatrixCols;
 
-	public FixedThreadMatrixMultiplication(int[][] matrix1, int[][] matrix2, int amountThreads) {
+	public LimitedThreadsMatrixMult(int[][] matrix1, int[][] matrix2, int amountThreads) {
 		this.matrix1 = matrix1;
 		this.matrix2 = matrix2;
 		this.amountThreads = amountThreads;
