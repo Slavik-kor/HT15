@@ -1,13 +1,13 @@
-package by.trepam.karotki.ht15.multiplication;
+package by.trepam.karotki.ht15.part_1;
 
-public class Row implements Runnable {
+public class SingleValueThread implements Runnable {
 	private int[][] matrix1;
 	private int[][] matrix2;
 	private int[][] resultMatrix;
 	private int row;
 	private int col;
 
-	public Row(int[][] matrix1, int[][] matrix2, int[][] resultMatrix, int row, int col) {
+	public SingleValueThread(int[][] matrix1, int[][] matrix2, int[][] resultMatrix, int row, int col) {
 		this.matrix1 = matrix1;
 		this.matrix2 = matrix2;
 		this.resultMatrix = resultMatrix;

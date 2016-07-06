@@ -1,16 +1,18 @@
 package by.trepam.karotki.ht15.main;
 
 import by.trepam.karotki.ht15.exception.MatrixException;
-import by.trepam.karotki.ht15.multiplication.FixedThreadMatrixMultiplication;
+import by.trepam.karotki.ht15.part_2.FixedThreadMatrixMultiplication;
 
 public class FixedThreadsDemo {
-
+	public final static int[][] FIRST_MATRIX = { { 1, 2, 3 }, { 1, 3, 2 }, { 3, 2, 6 } };
+	public final static int[][] SECOND_MATRIX = { { 1, 2, 3 }, { 1, 3, 2 }, { 3, 2, 6 } };
+	public final static int AMOUNT_THREADS = 2;
+	
 	public static void main(String[] args) throws InterruptedException, MatrixException {
-		int[][] matrix1 = { { 1, 2, 3 }, { 1, 3, 2 }, { 3, 2, 6 } };
-		int[][] matrix2 = { { 1, 2, 3 }, { 1, 3, 2 }, { 3, 2, 6 } };
+		
 		int[][] matrix = new int[3][3];
 
-		FixedThreadMatrixMultiplication m = new FixedThreadMatrixMultiplication(matrix1, matrix2, 5);
+		FixedThreadMatrixMultiplication m = new FixedThreadMatrixMultiplication(FIRST_MATRIX, SECOND_MATRIX, AMOUNT_THREADS);
 		matrix = m.calculate();
 		for (int[] i : matrix) {
 			for (int j : i) {

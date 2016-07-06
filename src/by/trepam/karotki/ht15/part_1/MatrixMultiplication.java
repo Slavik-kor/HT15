@@ -1,19 +1,17 @@
-package by.trepam.karotki.ht15.multiplication;
+package by.trepam.karotki.ht15.part_1;
 
 import by.trepam.karotki.ht15.exception.MatrixException;
 
-public class FixedThreadMatrixMultiplication {
+public class MatrixMultiplication {
 	private int[][] matrix1;
 	private int[][] matrix2;
-	private int amountThreads;
 	private int[][] resultMatrix;
 	private int resultMatrixRows;
 	private int resultMatrixCols;
 
-	public FixedThreadMatrixMultiplication(int[][] matrix1, int[][] matrix2, int amountThreads) {
+	public MatrixMultiplication(int[][] matrix1, int[][] matrix2) {
 		this.matrix1 = matrix1;
 		this.matrix2 = matrix2;
-		this.amountThreads = amountThreads;
 	}
 
 	public int[][] calculate() throws InterruptedException, MatrixException {
@@ -24,25 +22,15 @@ public class FixedThreadMatrixMultiplication {
 		resultMatrixCols = matrix2[0].length;
 
 		resultMatrix = new int[resultMatrixRows][resultMatrixCols];
-		if(resultMatrixRows < amountThreads){
-			amountThreads = resultMatrixRows;
-		}
-		
-		Thread[] thread = new Thread[amountThreads];
-		int amountRows = resultMatrixRows / amountThreads;
-		int reminder = resultMatrixRows % amountThreads;
-		int begin = 0;
-		for (int i = 0; i < thread.length; i++) {
-			if (i == thread.length - 1) {
-				amountRows += reminder;
+		Thread[] thread = new Thread[resultMatrixRows];
+		for (int i = 0; i < resultMatrixRows; i++) {
+			for (int j = 0; j < resultMatrix[i].length; j++) {
+				thread[i] = new Thread(new SingleValueThread(matrix1, matrix2, resultMatrix, i, j));
+				thread[i].start();
 			}
-			thread[i] = new Thread(new MultiplicationThread(matrix1, matrix2, resultMatrix, begin, begin + amountRows-1));
-			thread[i].start();
-			begin += amountRows;
 		}
-
 		try {
-			for (int i = 0; i < thread.length; i++) {
+			for (int i = 0; i < resultMatrixRows; i++) {
 				thread[i].join();
 			}
 		} catch (InterruptedException e) {
